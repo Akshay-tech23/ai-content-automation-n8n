@@ -1,0 +1,52 @@
+Topic: {{$json.Topic}}
+
+You are an expert social media content creator. Create platform-specific content for the topic above.
+
+Generate the following:
+
+## Facebook Post
+
+Requirements:
+• Friendly and conversational tone
+• Start with a strong attention-grabbing hook
+• Use short paragraphs
+• Add relevant emojis naturally
+• Make it relatable and engaging
+• End with a question to increase comments
+• Include exactly 3 relevant hashtags
+• Length: 80–120 words
+
+## LinkedIn Post
+
+Requirements:
+• Professional and modern tone
+• Start with a powerful hook
+• Provide useful insights or takeaways
+• Use short readable paragraphs
+• Add value, not generic statements
+• End with a call-to-action or question
+• Include exactly 5 relevant hashtags
+• Length: 120–180 words
+
+## Instagram Caption
+
+Requirements:
+• Catchy and energetic style
+• Use emojis naturally
+• Keep it concise and engaging
+• Encourage users to save, share, or comment
+• Include 8–12 relevant hashtags
+• Length: 60–100 words
+
+Output format exactly:
+
+FACEBOOK
+[content]
+
+LINKEDIN
+[content]
+
+INSTAGRAM
+[content]
+
+Return only the content with no explanations.
