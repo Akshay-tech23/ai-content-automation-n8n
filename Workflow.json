@@ -1,0 +1,207 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1aegugR7scJ9eSsyWt4xRnmKaim8f5c9cFcdGeEaA6yw",
+          "mode": "list",
+          "cachedResultName": "Content Ai",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1aegugR7scJ9eSsyWt4xRnmKaim8f5c9cFcdGeEaA6yw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1aegugR7scJ9eSsyWt4xRnmKaim8f5c9cFcdGeEaA6yw/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -288
+      ],
+      "id": "d977d451-497c-467f-8b26-04d1f5c8723c",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "uQiXidvVD9Ml0YLH",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        304,
+        -64
+      ],
+      "id": "221f7800-72fa-4899-ae81-6ae95ecdef57",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "6v6Xq4x2egkcNMBS",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1aegugR7scJ9eSsyWt4xRnmKaim8f5c9cFcdGeEaA6yw",
+          "mode": "list",
+          "cachedResultName": "Content Ai",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1aegugR7scJ9eSsyWt4xRnmKaim8f5c9cFcdGeEaA6yw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1aegugR7scJ9eSsyWt4xRnmKaim8f5c9cFcdGeEaA6yw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Content": "={{ $json.text }}",
+            "Topic": "={{ $('Google Sheets Trigger').item.json.Topic }}"
+          },
+          "matchingColumns": [
+            "Topic"
+          ],
+          "schema": [
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Content",
+              "displayName": "Content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        576,
+        -288
+      ],
+      "id": "9b90da96-0ac4-443f-9376-1b6030a64d58",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DC7jz42kHJOuCW7T",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Topic: {{$json.Topic}}\n\nYou are an expert social media content creator. Create platform-specific content for the topic above.\n\nGenerate the following:\n\n## Facebook Post\n\nRequirements:\n• Friendly and conversational tone\n• Start with a strong attention-grabbing hook\n• Use short paragraphs\n• Add relevant emojis naturally\n• Make it relatable and engaging\n• End with a question to increase comments\n• Include exactly 3 relevant hashtags\n• Length: 80–120 words\n\n## LinkedIn Post\n\nRequirements:\n• Professional and modern tone\n• Start with a powerful hook\n• Provide useful insights or takeaways\n• Use short readable paragraphs\n• Add value, not generic statements\n• End with a call-to-action or question\n• Include exactly 5 relevant hashtags\n• Length: 120–180 words\n\n## Instagram Caption\n\nRequirements:\n• Catchy and energetic style\n• Use emojis naturally\n• Keep it concise and engaging\n• Encourage users to save, share, or comment\n• Include 8–12 relevant hashtags\n• Length: 60–100 words\n\nOutput format exactly:\n\nFACEBOOK\n[content]\n\nLINKEDIN\n[content]\n\nINSTAGRAM\n[content]\n\nReturn only the content with no explanations.\n",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        224,
+        -288
+      ],
+      "id": "e656d945-5843-4c7c-85d4-8e61b1e34a25",
+      "name": "Generate Post Content"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Post Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Post Content",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Post Content": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "2c2ce15c-2412-4d87-acad-194ec483f087",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "58664e691b3df10dfa192523adf2e387d594791c015369a8896c6aa686949bd5"
+  },
+  "id": "PCGeJwXRX9xHzOaU",
+  "tags": []
+}
