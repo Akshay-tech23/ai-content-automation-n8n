@@ -20,7 +20,6 @@ https://www.youtube.com/watch?v=sddVXJqOlKo
 
 <img src="assets/N8nAiAutomation.gif" width="100%"/>
 
-GitHub supports GIF previews in README files when linked correctly. :contentReference[oaicite:0]{index=0}
 
 ---
 
